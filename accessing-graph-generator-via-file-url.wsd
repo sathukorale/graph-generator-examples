@@ -1,0 +1,28 @@
+```plantuml
+@startuml
+!include <tupadr3/common>
+
+!include <office/Servers/application_server>
+!include <office/Sites/wiki_site>
+!include <office/Concepts/document>
+!include <office/Services/3rd_party_service>
+
+package "Frontend" {
+    OFF_DOCUMENT(diagramFile, "Diagram File")
+    OFF_DOCUMENT(document, "Document")
+    file diagramImage [ Diagram Image 
+                <size:42><&pie-chart></size> 
+             ]
+}
+
+package "Graph Generator Backend" {
+    OFF_APPLICATION_SERVER(backend, "Graph Generator")
+}
+    
+diagramFile -r- document : Linked with proper syntax
+document -[hidden]- diagramFile
+diagramFile -l-> backend : Downloads the file
+backend -r-> diagramImage : Replies back the generated image
+diagramImage -l- document : Images replaces that syntax
+@enduml
+```
